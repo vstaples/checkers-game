@@ -1,6 +1,4 @@
 @echo off
-:: Navigate to the project directory
-cd C:\Users\YourUsername\Documents\checkers-game
 
 :: Add all changes
 git add .
