@@ -1,0 +1,20 @@
+{
+    "name": "checkers-game",
+    "version": "1.0.0",
+    "description": "",
+    "main": "better.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/vstaples/checkers-game.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/vstaples/checkers-game/issues"
+    },
+    "homepage": "https://github.com/vstaples/checkers-game#readme"
+  }
