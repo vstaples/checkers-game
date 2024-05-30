@@ -83,19 +83,19 @@ body {
 }
 
 .piece.red {
-  background-image: url('images/red-piece.svg');
+  background-image: url('/images/red-piece.svg');
 }
 
 .piece.red:hover {
-  background-image: url('images/red-piece-select.svg'); /* Change to desired hover image for red pieces */
+  background-image: url('/images/red-piece-select.svg'); /* Change to desired hover image for red pieces */
 }
 
 .piece.black {
-  background-image: url('images/black-piece.svg');
+  background-image: url('/images/black-piece.svg');
 }
 
 .piece.black:hover {
-  background-image: url('images/black-piece-select.svg'); /* Change to desired hover image for black pieces */
+  background-image: url('/images/black-piece-select.svg'); /* Change to desired hover image for black pieces */
 }
 
 /* Styles for the selected piece */
