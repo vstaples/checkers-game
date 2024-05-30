@@ -13,4 +13,3 @@ git push origin main
 
 :: Notify the user of completion
 echo Changes have been pushed to GitHub.
-pause
