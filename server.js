@@ -10,7 +10,7 @@ const io = socketIo(server);
 const PORT = process.env.PORT || 3000;
 
 // Serve static files from the "public" directory
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // When a client connects
 io.on('connection', (socket) => {
