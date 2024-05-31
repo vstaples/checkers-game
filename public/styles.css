@@ -83,19 +83,19 @@ body {
 }
 
 .piece.red {
-  background-image: url("images/red-piece.svg");
+  background-image: url('images/red-piece.svg');
 }
 
 .piece.red:hover {
-  background-image: url("images/red-piece-select.svg"); /* Change to desired hover image for red pieces */
+  background-image: url('images/red-piece-select.svg'); /* Change to desired hover image for red pieces */
 }
 
 .piece.black {
-  background-image: url("images/black-piece.svg");
+  background-image: url('images/black-piece.svg');
 }
 
 .piece.black:hover {
-  background-image: url("images/black-piece-select.svg"); /* Change to desired hover image for black pieces */
+  background-image: url('images/black-piece-select.svg'); /* Change to desired hover image for black pieces */
 }
 
 /* Styles for the selected piece */
@@ -131,30 +131,30 @@ body {
 }
 
 #winnerBanner {
-text-align: center;
-margin-top: 20px;
-font-size: 2em;
-color: white;
-background-color: #4CAF50; /* Green background */
-padding: 10px;
-border-radius: 10px;
-display: none; /* Initially hidden */
+  text-align: center;
+  margin-top: 20px;
+  font-size: 2em;
+  color: white;
+  background-color: #4CAF50; /* Green background */
+  padding: 10px;
+  border-radius: 10px;
+  display: none; /* Initially hidden */
 }
 
 .hidden {
-display: none;
+  display: none;
 }
 
 #newGameButton {
-display: flex;
-justify-content: center;
-align-items: center;
-margin-top: 20px;
-border: none;
-background: none;
-cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 #newGameButton img {
-width: 150px; /* Adjust the size as needed */
+  width: 150px; /* Adjust the size as needed */
 }
