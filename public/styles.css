@@ -83,7 +83,7 @@ body {
 }
 
 .piece.red {
-  background-image: url('images/red-piece.svg');
+  background-image: url('images/redpiece.svg');
 }
 
 .piece.red:hover {
