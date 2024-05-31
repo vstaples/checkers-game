@@ -1,19 +1,21 @@
+const authRoutes = require('./routes/auth');
+const bodyParser = require('body-parser');
 const express = require('express');
 const http = require('http');
-const socketIo = require('socket.io');
-const path = require('path');
 const mongoose = require('mongoose');
-const session = require('express-session');
 const passport = require('passport');
-const bodyParser = require('body-parser');
-const authRoutes = require('./routes/auth');
+const path = require('path');
+const session = require('express-session');
+const socketIo = require('socket.io');
+const WebSocket = require('ws');
 
 // Initialize Express app
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
-
+const wss = new WebSocket.Server({ server });
 const PORT = process.env.PORT || 3000;
+const { v4: uuidv4 } = require('uuid');
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -53,6 +55,30 @@ io.on('connection', (socket) => {
     });
 });
 
+const serverUID = uuidv4();
+console.log(`Server UID: ${serverUID}`);
+
+wss.on('connection', (ws) => {
+    console.log('New client connected');
+
+    ws.on('message', (message) => {
+        const parsedMessage = JSON.parse(message.toString());
+        console.log('Received message:', parsedMessage);
+
+        // Broadcast the received message to all connected clients
+        wss.clients.forEach((client) => {
+            if (client !== ws && client.readyState === WebSocket.OPEN) {
+                client.send(JSON.stringify(parsedMessage));
+            }
+        });
+    });
+
+    ws.on('close', () => {
+        console.log('Client disconnected');
+    });
+});
+
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    console.log(`Server UID: ${serverUID}`); // Ensure UID is printed after server starts
 });
