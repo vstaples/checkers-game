@@ -1,0 +1,73 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(8, 70px);
+  grid-template-rows: repeat(8, 70px);
+  gap: 0;
+}
+
+.square {
+  width: 70px;
+  height: 70px;
+  position: relative; /* Position pieces absolutely within squares */
+}
+
+.dark {
+  background-color: #b58863;
+}
+
+.dark:hover {
+  background-color: rgb(200, 160, 130);
+}
+
+.light {
+  background-color: #f0d9b5;
+}
+
+.light:hover {
+  background-color: rgb(245, 230, 200);
+}
+
+/* Checker pieces */
+.piece {
+  width: 60px; /* Adjust width and height to fit well within the square */
+  height: 60px;
+  position: absolute; /* Position pieces absolutely within squares */
+  top: 50%; /* Center pieces vertically */
+  left: 50%; /* Center pieces horizontally */
+  transform: translate(-50%, -50%); /* Adjust position to perfectly center */
+  background-size: cover; /* Ensure the background image covers the entire piece */
+  background-position: center; /* Center the background image */
+  cursor: pointer; /* Add cursor pointer for interactivity */
+  z-index: 1; /* Ensure pieces are above the squares */
+}
+
+.piece.red {
+  background-image: url('images/red-piece.svg');
+}
+
+.piece.red:hover {
+  background-image: url('images/red-piece-select.svg'); /* Change to desired hover image for red pieces */
+}
+
+.piece.black {
+  background-image: url('images/black-piece.svg');
+}
+
+.piece.black:hover {
+  background-image: url('images/black-piece-select.svg'); /* Change to desired hover image for black pieces */
+}
+
+/* Styles for the selected piece */
+.piece.selected {
+  outline: 2px solid yellow; /* Highlight the selected piece */
+  z-index: 2; /* Ensure the selected piece is above others */
+}
