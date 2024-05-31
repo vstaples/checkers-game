@@ -9,8 +9,8 @@ const io = socketIo(server);
 
 const PORT = process.env.PORT || 3000;
 
-// Serve static files from the 'public' directory
-// app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // When a client connects
 io.on('connection', (socket) => {
@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
 
     // When the client disconnects
     socket.on('disconnect', () => {
-        console.log('User disconnected');
+        console.log('A user disconnected');
     });
 });
 
