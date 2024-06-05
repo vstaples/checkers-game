@@ -1,0 +1,936 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #2e2e2e; /* Dark background */
+  font-family: 'Arial', sans-serif;
+  color: #e0e0e0; /* Light text color */
+}
+
+
+
+
+#header {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+#header .image1 {
+  width: 100%;
+  height: auto;
+}
+
+#header .image2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 50%; /* Adjust size as needed */
+  height: auto;
+  z-index: 1; /* Above the header */
+}
+
+#header .rectangle {
+  position: absolute;
+  top: 10px; /* Align to the top border of the trapezoid */
+  height: 60px; /* Increase the height as needed */
+  background: linear-gradient(145deg, #2e2e2e, #1e1e1e); /* Dark fill */
+  border: 3px solid #95B496; /* Light border */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 
+              0 0 10px rgba(255, 255, 255, 0.5), 
+              5px 5px 15px rgba(0, 0, 0, 0.3); /* Inner and outer shadow for depth */
+  z-index: 2; /* Ensure it is above the trapezoid */
+  left: 50%;
+  transform: translateX(-50%); /* Center horizontally */
+  width: 100px; /* Adjust the size to make it smaller */
+}
+
+#header .thin-rectangle {
+  position: absolute; /* Ensure absolute positioning */
+  width: 300px; /* Adjust the width for thin rectangles */
+  height: 10px; /* Adjust the height for thin rectangles */
+  background: linear-gradient(145deg, #2e2e2e, #1e1e1e); /* Dark fill */
+  border: 3px solid #95B496; /* Light border */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5),
+              0 0 5px rgba(255, 255, 255, 0.5), 
+              2px 2px 7px rgba(0, 0, 0, 0.3); /* Inner and outer shadow for depth */
+  z-index: 3; /* Ensure it is above other elements */
+  top: 40px; /* Align to the center horizontal axis of the middle rectangle */
+}
+
+#header .thin-rectangle.left {
+  left: calc(50% - 202px); /* Move to the left side, adjust value to avoid overlap */
+}
+
+#header .thin-rectangle.right {
+  left: calc(50% + 50px); /* Move to the right side, adjust value to avoid overlap */
+  transform: translateX(0); /* Remove any translation */
+}
+
+#newGameButton {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  right: -1150px; /* Move it closer to the right edge */
+  transform: translateY(-50%); /* Center vertically with respect to the button's height */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 4; /* Ensure it is above other elements */
+}
+
+#newGameButton img {
+  width: 150px; /* Adjust the size as needed */
+  display: block;
+}
+
+#winnerBanner {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50px; /* Move it closer to the left edge */
+  transform: translateY(-50%); /* Center vertically with respect to the banner's height */
+  background-color: #4CAF50; /* Green background */
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  font-size: 3em;
+  font-weight: bold;
+  z-index: 4; /* Ensure it is above other elements */
+}
+
+.hidden {
+  display: none;
+}
+
+
+
+
+#header .main-rectangle {
+  position: absolute;
+  top: 30px;
+  height: 80px;
+  background: linear-gradient(145deg, #2e2e2e, #1e1e1e);
+  border: 6px solid transparent;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(0deg, #07f7ff, #07f7ff 25%, #1e1e1e 100%);
+  animation: gradientBorder 2s linear infinite;
+  z-index: 2;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#timer {
+  font-size: 20px;
+  color: #ffffff;
+}
+
+@keyframes gradientBorder {
+  0% {
+    border-image-source: linear-gradient(0deg, #95B496, #95B496 25%, #5a705a 100%);
+  }
+  25% {
+    border-image-source: linear-gradient(90deg, #95B496, #95B496 25%, #95B496 100%);
+  }
+  50% {
+    border-image-source: linear-gradient(180deg, #95B496, #95B496 25%, #5a705a 100%);
+  }
+  75% {
+    border-image-source: linear-gradient(270deg, #95B496, #95B496 25%, #95B496 100%);
+  }
+  100% {
+    border-image-source: linear-gradient(360deg, #95B496, #95B496 25%, #5a705a 100%);
+  }
+}
+
+
+
+
+.captured-container {
+  position: absolute;
+  width: 200px; /* Adjust width as needed */
+  text-align: center;
+  font-size: 1.2em;
+  color: #ffffff; /* Light text color */
+  display: block; /* Ensure it is displayed */
+  visibility: visible; /* Ensure it is visible */
+  z-index: 100; /* Ensure it is on top */
+}
+
+#capturedLeft {
+  left: calc(50% - 300px); /* Adjust based on your design */
+  top: 70px; /* Adjust to place beneath the left wing */
+}
+
+#capturedRight {
+  left: calc(50% + 100px); /* Adjust based on your design */
+  top: 70px; /* Adjust to place beneath the right wing */
+}
+
+
+
+#left-wing, #right-wing {
+  position: relative;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  outline: none;
+}
+
+#left-wing.inactive::before, #right-wing.inactive::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255, 0, 0, 0) 20%, rgba(255, 0, 0, 1) 50%, rgba(255, 0, 0, 0) 80%);
+  animation: beamEffect 5s infinite alternate;
+}
+
+#left-wing.active::before, #right-wing.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0, 255, 0, 0) 20%, rgba(0, 255, 0, 1) 50%, rgba(0, 255, 0, 0) 80%);
+  animation: beamEffect 5s infinite alternate-reverse;
+}
+
+@keyframes beamEffect {
+  0% {
+    transform: translateX(-50%);
+  }
+  50% {
+    transform: translateX(50%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+
+
+/* Define the glowing effect */
+.glowing {
+  box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.8); /* Adjust color and size for effect */
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+#redPlayerName.glowing {
+  box-shadow: 0 0 15px 5px rgba(255, 0, 0, 0.8); /* Red glow for red player */
+}
+
+#blackPlayerName.glowing {
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.8); /* Black glow for black player */
+}
+
+.light-beam {
+  position: absolute;
+  top: 25px; /* Adjust this value to position the beam correctly */
+  left: 20%;
+  transform: translateX(-50%);
+  width: 50%; /* Adjust this value to control the length of the beam */
+  height: 3px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 20%, rgb(7, 247, 255) 70%, rgba(255, 255, 255, 0) 100%);
+  animation: moveBeam 5s infinite;
+  z-index: 0; /* Ensure it is below the iPad frame */
+}
+
+@keyframes moveBeam {
+  0% {
+    transform: translateX(-40%);
+  }
+  50% {
+    transform: translateX(40%);
+  }
+  100% {
+    transform: translateX(-40%);
+  }
+}
+
+.indicator-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.indicator {
+  width: 100px;
+  height: 100px;
+  border: 5px solid #ccc;
+  border-radius: 50%;
+  background-color: green; /* Default color */
+  position: relative;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.indicator.green {
+  background-color: green;
+}
+
+.indicator.red {
+  background-color: red;
+}
+
+.indicator::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.indicator::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#gameArea {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  flex-wrap: nowrap;
+  border: 2px solid #3a3a3a;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #3e3e3e, #1e1e1e); /* Gradient background */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.userInfo {
+  flex: 1;
+  max-width: 25%;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background: #3a3a3a; /* Dark background for user info */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.loginUser {
+  color: #4caf50; /* Green color for logged-in user */
+  font-size: 1.3em;
+  font-weight: normal;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#ipad {
+  align-items: center;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(0deg, #e5e5e5, #a6a6a6);
+  border-radius: 40px;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5), inset 0 -10px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  height: auto;
+  justify-content: center;
+  max-height: 90vh;
+  max-width: 1400px;
+  overflow: hidden;
+  padding: 20px;
+  position: relative;
+  width: 90%;
+  z-index: 2; /* Ensure it is above other elements */
+}
+
+#screen {
+  background: #2e2e2e; /* Dark background */
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+#ipad::before {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 20px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+  border-radius: 50%;
+}
+
+#controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 20px;
+  flex: 1;
+}
+
+#boardArea {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+#watchface {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  position: relative;
+  overflow: visible;
+  z-index: 3;
+}
+
+#moat {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  border-radius: 5px;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 1;
+  background: url('../images/PictureFrame.png') no-repeat center center;
+  background-size: cover;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(8, 70px);
+  grid-template-rows: repeat(8, 70px);
+  gap: 0;
+  box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.5),
+              inset 0 -5px 15px rgba(0, 0, 0, 0.5),
+              inset 5px 0 15px rgba(0, 0, 0, 0.5),
+              inset -5px 0 15px rgba(0, 0, 0, 0.5);
+  border-radius: 0px; /* Rounded corners */
+  overflow: hidden;
+  height: calc(8 * 70px); /* Ensure the height is correct */
+  width: calc(8 * 70px); /* Ensure the width is correct */
+  position: relative; /* For the 3D effect positioning */
+  z-index: 1;
+}
+
+#infoDisplay {
+  text-align: center;
+  font-size: 1.4em;
+  color: #333;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.userDetails .avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 10px;
+  border: 2px solid #ffffff; /* Ensure this line is present */
+}
+
+#redPlayerAvatar, #blackPlayerAvatar {
+  width: 70px; /* Ensure the size matches your requirement */
+  height: 70px; /* Ensure the size matches your requirement */
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #ffffff; /* Ensure this line is present */
+  background-color: transparent; /* Ensure the background is transparent */
+}
+
+.username {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.record {
+  font-size: 1em;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 5px;
+}
+
+#activeUsersFrame {
+  display: flex;
+  flex-direction: column; /* Ensure the frame itself stacks items vertically */
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 2px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  height: auto;
+  max-height: calc(8 * 70px); /* Match the height of the gameboard */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: hidden; /* Hide horizontal scrolling */}
+
+.title {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+#userList {
+  display: flex; /* Ensure #userList is a flex container */
+  flex-direction: row; /* Align items horizontally */
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  /* overflow-x: auto; Enable horizontal scrolling if needed */
+  flex-wrap: wrap; /* Enable wrapping */
+  gap: 10px; /* Add some space between the items */
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px; /* Adjust margin between users */
+}
+
+.user .avatar {
+  width: 40px;
+  height: 40px;
+  margin: 0; /* Ensure no margin */
+  padding: 0; /* Ensure no padding */
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}
+
+.user .username {
+  font-size: 0.8em;
+  font-weight: normal;
+  text-align: center;
+  margin: 0; /* Ensure no margin */
+  padding: 5px 0; /* Adjust padding */
+}
+
+.square {
+  height: 70px;
+  width: 70px;
+  position: relative;
+}
+
+.dark {
+  background-color: #6b4003; /* Darker squares */
+}
+
+.dark:hover {
+  background-color: #a17941; /* Lighter on hover */
+}
+
+.light {
+  background-color: #fdf0d0; /* Light squares */
+}
+
+.light:hover {
+  background-color: #fffefd; /* Lighter on hover */
+}
+
+.piece {
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  height: 60px;
+  justify-content: center;
+  width: 60px;
+  z-index: 1;
+  margin: 5px;
+}
+
+.piece.crowned {
+  border: 3px solid gold; /* Gold border for crowned pieces */
+  position: relative;
+}
+
+.piece span {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5em;
+  pointer-events: none;
+}
+
+.piece.red {
+  background-image: url('../images/red-piece.svg');
+}
+
+.piece.red:hover {
+  background-image: url('../images/red-piece-select.svg');
+}
+
+.piece.black {
+  background-image: url('../images/black-piece.svg');
+}
+
+.piece.black:hover {
+  background-image: url('../images/black-piece-select.svg');
+}
+
+.piece.selected {
+  outline: 2px solid yellow;
+  z-index: 2;
+}
+
+/* ============================================================= */
+/* SPECTATOR container styling                                        */
+/* ============================================================= */
+
+#spectatorQueue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+#spectatorQueue .title {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+#queueList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+#queueList li {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+#queueList li:last-child {
+  border-bottom: none;
+}
+
+#queueList .avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  margin-right: 10px;
+}
+
+#queueList .username {
+  font-size: 1em;
+  color: #333;
+}
+
+#joinQueueButton {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+#joinQueueButton:hover {
+  background-color: #45a049;
+}
+
+/* ============================================================= */
+/* CHAT container styling                                        */
+/* ============================================================= */
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px; /* Cap the maximum width */
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.chat-messages {
+  flex: 1;
+  width: 100%;
+  max-width: 400px; /* Cap the maximum width */
+  min-height: 100px;
+  overflow-y: auto;
+  border: 1px solid #959494; /* Darker border */
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: #f7f3f3; /* Dark background */
+  color: #E0E0E0; /* Light text */
+  box-sizing: border-box;
+}
+
+#chatInput {
+  width: 100%;
+  max-width: 400px; /* Cap the maximum width */
+  padding: 10px;
+  border: 1px solid #555; /* Darker border */
+  border-radius: 5px;
+  background-color: #f2ffff; /* Dark background */
+  color: #000000; /* Light text */
+  box-sizing: border-box;
+  margin-bottom: 5px; /* Add margin to separate from send button */
+}
+
+#sendChat {
+  width: 100%;
+  max-width: 400px; /* Cap the maximum width */
+  padding: 10px;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.button {
+  padding: 10px;
+}
+
+#sendChat:hover {
+  background-color: #45a049;
+}
+
+.chat-message {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.own-message {
+  justify-content: flex-end;
+}
+
+.other-message {
+  justify-content: flex-start;
+}
+
+.chat-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.chat-text {
+  background-color: #444; /* Dark background */
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+  color: #000000; /* Light text */
+}
+
+.own-message .chat-text {
+  background-color: #4CAF50; /* Green for own messages */
+}
+
+.own-message .chat-avatar {
+  order: 1;
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+.other-message .chat-text {
+  background-color: #fff; /* Darker for other messages */
+  color: #251ba7
+}
+
+/* ============================================================= */
+/* LOGIN container styling                                       */
+/* ============================================================= */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #222; /* Dark background */
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  width: 90%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #E0E0E0; /* Light text */
+  font-size: 24px;
+  text-align: center;
+}
+
+form {
+  width: 100%;
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #BBB; /* Light gray */
+}
+
+input[type="text"], input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555; /* Darker border */
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #333; /* Dark background */
+  color: #E0E0E0; /* Light text */
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+p {
+  color: #777;
+  margin-top: 15px;
+  text-align: center;
+}
+
+p a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================================= */
+/* SCOREBOARD container styling                                  */
+/* ============================================================= */
+
+#infoDisplay {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.4em;
+  color: #333;
+}
+
+#scoreboard {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.score, .captured {
+  display: flex;
+  flex-direction: column; /* Change to column layout */
+  font-size: 16px;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.score span, .captured span {
+  margin-top: 10px; /* Adjust margin to create spacing */
+  font-weight: bold; /* Ensure the inner span text is also bold */
+}
+
+.score.red, .captured.red {
+  font-weight: bold; /* Make text bold */
+  color: white; /* Set text color to white */
+}
+
+.score.black, .captured.black {
+  font-weight: bold; /* Make text bold */
+  color: white; /* Set text color to white */
+}

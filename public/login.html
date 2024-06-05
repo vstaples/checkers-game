@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/board.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/user.css">
 </head>
 <body>
     <div class="container">
         <h2>Login</h2>
-        <form action="/login" method="POST">
+        <form id="loginForm" action="/login" method="POST">
             <div>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
@@ -21,6 +24,40 @@
             <button type="submit">Login</button>
         </form>
         <p>Don't have an account? <a href="/register">Register here</a>.</p>
+        <div id="error-message" style="color: red;"></div>
     </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => {
+                if (response.headers.get('content-type')?.includes('application/json')) {
+                    return response.json();
+                } else {
+                    return response.text().then(text => { throw new Error(text); });
+                }
+            })
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '/game.html';
+                } else {
+                    document.getElementById('error-message').textContent = data.message || 'Login failed';
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with the login request:', error);
+                document.getElementById('error-message').textContent = 'An error occurred: ' + error.message;
+            });
+        });
+    </script>
 </body>
 </html>

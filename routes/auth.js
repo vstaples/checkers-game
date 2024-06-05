@@ -52,11 +52,22 @@ router.get('/register', (req, res) => {
 router.post('/register', async (req, res) => {
     try {
         const { username, password } = req.body;
+        console.log('Registering user:', username);
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ username, password: hashedPassword });
+        const avatarPath = `images/${username}.png`;
+        const newUser = new User({
+            username,
+            password: hashedPassword,
+            avatar: avatarPath,
+            wins: 0,
+            losses: 0,
+            rank: 0
+        });
         await newUser.save();
-        res.redirect('/login'); // Redirect to login page after successful registration
+        console.log('User registered successfully:', username);
+        res.redirect('/login');
     } catch (err) {
+        console.error('Error registering user:', err);
         res.status(500).json({ error: err.message });
     }
 });
@@ -66,9 +77,24 @@ router.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/login.html')); // Serve the login.html file
 });
 
-router.post('/login', passport.authenticate('local', {
-    successRedirect: '/game', // Redirect to game page after successful login
-    failureRedirect: '/login'
-}));
-
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            console.error('Authentication error:', err);
+            return res.status(500).json({ success: false, message: 'Internal server error' });
+        }
+        if (!user) {
+            console.warn('Authentication failed:', info.message);
+            return res.status(401).json({ success: false, message: info.message || 'Invalid credentials' });
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                console.error('Login error:', err);
+                return res.status(500).json({ success: false, message: 'Login failed' });
+            }
+            console.log('Authentication successful for user:', user.username, user.avatar);
+            return res.json({ success: true });
+        });
+    })(req, res, next);
+});
 module.exports = router;

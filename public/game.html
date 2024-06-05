@@ -4,37 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkers Game</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/board.css">
 </head>
 <body>
-    <div class="container">
-        <div id="scoreboard">
-            <div class="score red">
-                <span>Red Wins:</span>
-                <span id="redWins">0</span>
+    <div id="ipad">
+        <div id="screen">
+            <div class="light-beam"></div>
+            <div id="header">
+                <img class="image1" src="images/Header.png" />
+                <img class="image2" src="images/Trapezoid.png" />
+                <div class="rectangle main-rectangle">
+                    <span id="timer">1:30</span>
+                </div>
+                <div id="left-wing" class="rectangle thin-rectangle left"></div>
+                <div id="right-wing" class="rectangle thin-rectangle right"></div>
+                <div id="capturedLeft" class="captured-container">
+                    <span id="capturedRed">Captured Red: 0</span>
+                </div>
+                <div id="capturedRight" class="captured-container">
+                    <span id="capturedBlack">Captured Black: 0</span>
+                </div>
+                <div id="winnerBanner" class="hidden">WINNER!</div>
+                <button id="newGameButton">
+                    <img src="images/new-game.png" alt="New Game">
+                </button>
             </div>
-            <div class="score black">
-                <span>Black Wins:</span>
-                <span id="blackWins">0</span>
+            <div id="gameArea">
+                <div id="redUserInfo" class="userInfo">
+                    <div class="userDetails">
+                        <div class="avatar" id="redPlayerAvatar"></div>
+                        <div class="username" id="redPlayerName">Red Player</div>
+                        <div class="record" id="redPlayerRecord">Wins:   Loss:</div>
+                    </div>
+                    <div class="score red">
+                        <span>Red Wins:</span>
+                        <span id="redWins">0</span>
+                    </div>
+                    <hr> <!-- Horizontal line separator -->
+                    <div id="activeUsersFrame">
+                        <div class="title">Active Users</div>
+                        <div id="userList"></div>
+                    </div>
+                    <hr> <!-- Horizontal line separator -->
+                    <span class="loginUser" id="loginUser">Logged in as: </span>
+                </div>
+                <div id="boardArea">
+                    <div id="watchface">
+                        <div id="moat"></div>
+                        <div id="board"></div>
+                    </div>
+                </div>
+                <div id="blackUserInfo" class="userInfo">
+                    <div class="userDetails">
+                        <div class="avatar" id="blackPlayerAvatar"></div>
+                        <div class="username" id="blackPlayerName">Black Player</div>
+                        <div class="record" id="blackPlayerRecord">Wins:   Losses:</div>
+                    </div>
+                    <div class="score black">
+                        <span>Black Wins:</span>
+                        <span id="blackWins">0</span>
+                    </div>
+                    <hr> <!-- Horizontal line separator -->
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chatMessages"></div>
+                        <input type="text" id="chatInput" placeholder="Type your message...">
+                        <button id="sendChat">Send</button>
+                    </div>
+                    <hr> <!-- Horizontal line separator -->
+                    <div id="spectatorQueue">
+                        <div class="title">Play Next</div>
+                        <ul id="queueList"></ul>
+                        <button id="playNextButton">Play Next</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="capturedPieces">
-            <div class="captured red">
-                <span>Captured Red:</span>
-                <span id="capturedRed">0</span>
-            </div>
-            <div class="captured black">
-                <span>Captured Black:</span>
-                <span id="capturedBlack">0</span>
-            </div>
-        </div>
-        <div id="board"></div>
-        <p id="infoDisplay"></p>
-        <button id="newGameButton">
-            <img src="images/new-game.png" alt="New Game">
-        </button>
-        <div id="winnerBanner" class="hidden"></div> <!-- Winner banner -->
     </div>
-    <script src="script.js"></script>
+    <script src="client.js"></script>
 </body>
 </html>

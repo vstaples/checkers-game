@@ -34,7 +34,23 @@
             <img src="images/new-game.png" alt="New Game 2">
         </button>
         <div id="winnerBanner" class="hidden"></div> <!-- Winner banner -->
+        
+        <!-- Active Users Section -->
+        <div id="activeUsers" class="active-users">
+            <h3>Active Users</h3>
+            <div id="userList"></div>
+        </div>
+        
+        <!-- Chat Section -->
+        <div id="chatArea" class="chat-area">
+            <div id="chatMessages"></div>
+            <input type="text" id="chatInput" placeholder="Type a message...">
+            <button id="sendChat">Send</button>
+        </div>
     </div>
+    <script>
+        const user = JSON.parse('<%= JSON.stringify(user) %>');
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
