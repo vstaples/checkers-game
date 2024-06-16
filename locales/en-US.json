@@ -1,0 +1,22 @@
+{
+    "activeUsers": "Active Users",
+    "blackPlayer": "Black Player",
+    "redPlayerRecord": "Wins: {{wins}} Losses: {{losses}}",
+    "blackPlayerRecord": "Wins: {{wins}} Losses: {{losses}}",
+    "blackWins": "Black Wins",
+    "capturedBlack": "Captured Black: 0",
+    "capturedRed": "Captured Red: 0",
+    "capturedRedDynamic": "{{username}} Captured: {{count}}",
+    "capturedBlackDynamic": "{{username}} Captured: {{count}}",
+    "loggedInAs": "Logged in as: {{loginame}}",
+    "newGame": "New Game",
+    "playNext": "Play Next",
+    "dontPlayNext": "Don't Play Next",
+    "redPlayer": "Red Player",
+    "redWins": "Red Wins",
+    "send": "Send",
+    "timer": "timer",
+    "title": "Checkers Game",
+    "typeMessage": "Type your message...",
+    "winner": "WINNER!"
+}

@@ -1,0 +1,22 @@
+{
+    "activeUsers": "活跃用户",
+    "blackPlayer": "黑方玩家",
+    "redPlayerRecord": "胜: {{wins}} 败: {{losses}}",
+    "blackPlayerRecord": "胜: {{wins}} 败: {{losses}}",
+
+    "blackWins": "黑胜",
+    "capturedBlack": "捕获的黑色: 0",
+    "capturedRed": "捕获的红色: 0",
+    "capturedRedDynamic": "{{username}} 被捕获: {{count}}",
+    "capturedBlackDynamic": "{{username}} 被捕获: {{count}}",
+    "loggedInAs": "登录为: {{loginame}}",
+    "playNext": "下一个玩家",
+    "dontPlayNext": "不想玩",
+    "redPlayer": "红方玩家",
+    "redWins": "红色获胜",
+    "send": "发送",
+    "timer": "计时器",
+    "title": "跳棋游戏",
+    "typeMessage": "输入你的消息...",
+    "winner": "赢家!"
+ }

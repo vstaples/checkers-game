@@ -3,50 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkers Game</title>
-    <link rel="stylesheet" href="css/board.css">
+    <title data-i18n="title">Checkers Game</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div id="ipad">
         <div id="screen">
             <div class="light-beam"></div>
             <div id="header">
-                <img class="image1" src="images/Header.png" />
+                <div class="image1-wrapper">
+                    <img class="image1" src="images/Header.png" />
+                    <button id="newGameButton">
+                        <img src="images/new-game.png" alt="New Game">
+                    </button>
+                </div>
                 <img class="image2" src="images/Trapezoid.png" />
                 <div class="rectangle main-rectangle">
-                    <span id="timer">1:30</span>
+                    <span id="timer" data-i18n="timer">00:30</span>
                 </div>
                 <div id="left-wing" class="rectangle thin-rectangle left"></div>
                 <div id="right-wing" class="rectangle thin-rectangle right"></div>
                 <div id="capturedLeft" class="captured-container">
-                    <span id="capturedRed">Captured Red: 0</span>
+                    <span id="capturedRed" data-i18n="capturedRed">Captured Red: 0</span>
                 </div>
                 <div id="capturedRight" class="captured-container">
-                    <span id="capturedBlack">Captured Black: 0</span>
+                    <span id="capturedBlack" data-i18n="capturedBlack">Captured Black: 0</span>
                 </div>
-                <div id="winnerBanner" class="hidden">WINNER!</div>
-                <button id="newGameButton">
-                    <img src="images/new-game.png" alt="New Game">
+                <div id="winnerBanner" class="hidden" data-i18n="winner">WINNER!</div>
+                <button id="flag_us">
+                    <img class="flag_us" src="images/us-flag.png" alt="US Flag">
+                </button>
+                <button id="flag_china">
+                    <img class="flag_china" src="images/china-flag.png" alt="China Flag">
                 </button>
             </div>
             <div id="gameArea">
                 <div id="redUserInfo" class="userInfo">
                     <div class="userDetails">
                         <div class="avatar" id="redPlayerAvatar"></div>
-                        <div class="username" id="redPlayerName">Red Player</div>
-                        <div class="record" id="redPlayerRecord">Wins:   Loss:</div>
+                        <div class="username" id="redPlayerName" data-i18n="redPlayer">Red Player</div>
+                        <div class="record" id="redPlayerRecord" data-i18n="redPlayerRecord">Wins: Loss:</div>
                     </div>
-                    <div class="score red">
-                        <span>Red Wins:</span>
+                    <!-- <div class="score red">
+                        <span data-i18n="redWins">Red Wins:</span>
                         <span id="redWins">0</span>
-                    </div>
+                    </div> -->
                     <hr> <!-- Horizontal line separator -->
                     <div id="activeUsersFrame">
-                        <div class="title">Active Users</div>
-                        <div id="userList"></div>
+                        <div class="title" data-i18n="activeUsers">Active Users</div>
+                        <div id="activeUserList"></div>
                     </div>
                     <hr> <!-- Horizontal line separator -->
-                    <span class="loginUser" id="loginUser">Logged in as: </span>
+                    <span class="loginUser" id="loginUser" data-i18n="loggedInAs">Logged in as: </span>
                 </div>
                 <div id="boardArea">
                     <div id="watchface">
@@ -57,29 +65,54 @@
                 <div id="blackUserInfo" class="userInfo">
                     <div class="userDetails">
                         <div class="avatar" id="blackPlayerAvatar"></div>
-                        <div class="username" id="blackPlayerName">Black Player</div>
-                        <div class="record" id="blackPlayerRecord">Wins:   Losses:</div>
+                        <div class="username" id="blackPlayerName" data-i18n="blackPlayer">Black Player</div>
+                        <div class="record" id="blackPlayerRecord" data-i18n="blackPlayerRecord">Wins: Losses:</div>
                     </div>
-                    <div class="score black">
-                        <span>Black Wins:</span>
+                    <!-- <div class="score black">
+                        <span data-i18n="blackWins">Black Wins:</span>
                         <span id="blackWins">0</span>
-                    </div>
+                    </div> -->
                     <hr> <!-- Horizontal line separator -->
                     <div class="chat-container">
-                        <div class="chat-messages" id="chatMessages"></div>
-                        <input type="text" id="chatInput" placeholder="Type your message...">
-                        <button id="sendChat">Send</button>
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="chat-message own-message">
+                                <div class="chat-avatar" style="background-image: url('path/to/avatar.png');"></div>
+                                <div class="chat-text">Hello, this is a message.</div>
+                            </div>
+                            <div class="chat-message other-message">
+                                <div class="chat-avatar" style="background-image: url('path/to/avatar.png');"></div>
+                                <div class="chat-text">This is another message.</div>
+                            </div>
+                            <!-- Add more messages as needed -->
+                        </div>
+                        <input type="text" id="chatInput" placeholder="Type your message..." data-i18n-placeholder="typeMessage">
+                        <button id="sendChat" data-i18n="send">Send</button>
                     </div>
                     <hr> <!-- Horizontal line separator -->
                     <div id="spectatorQueue">
-                        <div class="title">Play Next</div>
+                        <div class="title" data-i18n="playNext">Play Next</div>
                         <ul id="queueList"></ul>
-                        <button id="playNextButton">Play Next</button>
+                        <button id="playNextButton" data-i18n="playNext">Play Next</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Load external libraries first -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/21.6.16/i18next.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-http-backend/1.4.3/i18nextHttpBackend.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-browser-languagedetector/6.1.3/i18nextBrowserLanguageDetector.min.js"></script>
+    <!-- Load custom scripts after external libraries -->
+    
     <script src="client.js"></script>
-</body>
+    <script src="client_auth.js"></script>
+   
+    <!-- Modal HTML -->
+    <div id="moveModal" class="modal">
+        <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="moveText">Black is about to move...</p>
+        </div>
+    </div>
+  </body>
 </html>
